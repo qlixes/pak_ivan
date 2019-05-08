@@ -6,13 +6,16 @@ class M_users extends MY_Model
     {
         $param = [
             'is_active' => true,
-            'user_name' => $params['username']
+            'user_name' => $params['user_name'],
+            'user_password' => $params['user_password']
         ];
 
         $this->db->select('user_name,user_password');
         $this->db->where($param);
-        $query = $this->db->get('users')->row();
+        $query = $this->db->get('users');
 
-        return (password_verify($params['password'], $query->user_password)) ? $query : [];
+        return $query->row();
+
+        // return (password_verify($params['password'], $query->user_password)) ? $query : [];
     }
 }
